@@ -17,8 +17,8 @@ describe "aves vuelan" {
 
     milena.movilizar(4)
     
-    assert.equals(94, pepita.energia())
-    assert.equals(18, pepon.energia())
+    assert.equals(86, pepita.energia())
+    assert.equals(2, pepon.energia())
     
   }
 

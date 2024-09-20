@@ -117,7 +117,7 @@ object milena {
 	
 	method movilizar(distancia) {
 		self.validarMovilizar(distancia)
-	  	aves.foreach({ave => ave.volar(distancia)})
+	  	aves.forEach({ave => ave.volar(distancia)})
 	  //el all retorna un booleano, se usa el foreach porque todos los objetos deben realizar x acción
 	}
 
