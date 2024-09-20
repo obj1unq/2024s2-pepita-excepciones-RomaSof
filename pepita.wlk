@@ -6,9 +6,24 @@ object pepita {
 	}
 	
 	method volar(distancia) {
-		energia = energia - 10 - distancia
+		self.validarVolar(distancia)
+		energia = energia - self.energiaNecesariaParaVolar(distancia)
 	}
-		
+
+	method validarVolar(distancia) {
+		if( not self.puedeVolar(distancia) ){
+			self.error("no se puede volar" + distancia + "porque no alcanza la energía")
+		}
+	}
+
+	method puedeVolar(distancia) {
+	  return energia >= self.energiaNecesariaParaVolar(distancia)
+	}
+
+	method energiaNecesariaParaVolar(distancia) {
+		return 10 + distancia
+	}	
+
 	method energia() {
 		return energia
 	}
@@ -50,11 +65,26 @@ object pepon {
 	}
 		
 	method comer(comida) {
-		energia += energia + comida.energiaQueAporta() / 2
+		energia = energia + comida.energiaQueAporta() / 2
 	}
 		
 	method volar(distancia) {
-		energia = energia - 20 - 2*distancia
+		self.validarVolar(distancia)
+		energia = energia - self.energiaNecesariaParaVolar(distancia)
+	}
+
+	method validarVolar(distancia) {
+	  if ( not self.puedeVolar(distancia) ){
+		self.error("no se puede volar" + distancia + "porque no alcanza la energía")
+	  }
+	}
+
+	method puedeVolar(distancia) {
+	  return energia >= self.energiaNecesariaParaVolar(distancia)
+	}
+
+	method energiaNecesariaParaVolar(distancia) {
+	  return 20 + 2 * distancia
 	}
 	
 }
@@ -72,5 +102,34 @@ object roque {
 		ave.comer(alimento)
 		cenas = cenas + 1
 	}
+}
+	//PROBLEMAS CON MILENA REVISAR
+object milena {
+  const aves = #{pepita, pepon} 
+
+	method agregarAve(ave) {
+	  aves.add(ave)
+	}
+
+	method abandonarAve(ave){
+		aves.remover(ave) //Si no estaba el ave simplemente no hace nada.
+	}
+	
+	method movilizar(distancia) {
+		self.validarMovilizar(distancia)
+	  	aves.foreach({ave => ave.volar(distancia)})
+	  //el all retorna un booleano, se usa el foreach porque todos los objetos deben realizar x acción
+	}
+
+	method validarMovilizar(distancia) {
+	  if( not self.todasPuedenVolar(distancia)){
+		self.error("no todas las aves pueden volar" + distancia + "km")
+	  }
+	}
+
+	method todasPuedenVolar(distancia) {
+	  return aves.all({ave => ave.puedeVolar(distancia)})
+	}
+
 }
 

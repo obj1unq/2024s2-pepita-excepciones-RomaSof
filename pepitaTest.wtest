@@ -1,0 +1,37 @@
+import pepita.*
+
+describe "aves vuelan" {
+  test "pepita error para volar" {
+    
+    assert.throwsException({ pepita.volar(110) })
+
+  }
+
+  test "pepon error para volar" {
+    
+    assert.throwsException({ pepon.volar(100) })
+
+  }
+
+  test "milena puede movilizar las aves" {
+
+    milena.movilizar(4)
+    
+    assert.equals(94, pepita.energia())
+    assert.equals(18, pepon.energia())
+    
+  }
+
+  test "milena no puede movilizar las aves" {
+
+    assert.throwsException({ milena.movilizar(6) })
+    
+  }
+
+  test "ni pepita ni pepon pueden volar 100" {
+    
+    assert.throwsException({ pepita.volar(100) })
+    assert.throwsException({ pepon.volar(100) })
+
+  }
+}
